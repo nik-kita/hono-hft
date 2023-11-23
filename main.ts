@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { serveStatic } from "https://deno.land/x/hono@v3.10.1/middleware.ts";
-import { api } from "./ui/src/api.ts";
+import { api } from "./api.ts";
 
 const port = 3000;
 const app = new Hono()
