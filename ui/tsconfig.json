@@ -20,5 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "../kucoin"],
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

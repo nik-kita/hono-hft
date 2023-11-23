@@ -1,11 +1,20 @@
 import { Hono } from "https://deno.land/x/hono@v3.4.1/mod.ts";
+import { cors } from "https://deno.land/x/hono@v3.4.1/middleware.ts";
 import { serveStatic } from "npm:@hono/node-server/serve-static";
 // import { serveStatic } from "https://deno.land/x/hono@v3.10.1/middleware.ts";
 
 const app = new Hono();
+const port = 3000;
 
-app.get("/*", serveStatic({ root: "./static" }));
+app.use(
+  "/*",
+  cors({ origin: Deno.env.get("CORS_ORIGIN") || "http://localhost:" + port }),
+);
+
+app.get("/api/hello", (c) => c.text("world"));
+
+app.get("/*", serveStatic({ root: "./ui/dist" }));
 
 Deno.serve({
-  port: 3000,
+  port,
 }, app.fetch);
