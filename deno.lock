@@ -3,6 +3,7 @@
   "packages": {
     "specifiers": {
       "npm:@hono/node-server": "npm:@hono/node-server@1.2.3",
+      "npm:@hono/zod-validator": "npm:@hono/zod-validator@0.1.11_hono@3.10.1_zod@3.22.4",
       "npm:hono": "npm:hono@3.10.1"
     },
     "npm": {
@@ -10,8 +11,19 @@
         "integrity": "sha512-IH2lpqgSSLt9sIhWBE6FivFj+0RglCNYVuBT39vkumfjqjHAwQnx7KJw9WDVNlyH+AJY0N5ImZgcIbfM5xgyBw==",
         "dependencies": {}
       },
+      "@hono/zod-validator@0.1.11_hono@3.10.1_zod@3.22.4": {
+        "integrity": "sha512-PQXeHUP0+36qpRt8yfeD7N2jbK3ETlGvSN6dMof/HwUC/APRokQRjpXZm4rrlG71Ft0aWE01+Bm4XejqPie5Uw==",
+        "dependencies": {
+          "hono": "hono@3.10.1",
+          "zod": "zod@3.22.4"
+        }
+      },
       "hono@3.10.1": {
         "integrity": "sha512-4jPKCmYWLAoCMpmvOU+xNOQYdcNftip7sM/IsO8EPyGAtjk9fGNyUchG6huSzLrY449WDNGFPetVs5doepNnlA==",
+        "dependencies": {}
+      },
+      "zod@3.22.4": {
+        "integrity": "sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==",
         "dependencies": {}
       }
     }

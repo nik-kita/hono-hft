@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "dev": "deno run -A --unstable main.ts --watch",
+    "ui:build": "cd ui && npm run build"
+  },
+  "imports": {
+    // "hono": "https://deno.land/x/hono@v3.4.1/mod.ts"
+    "hono": "npm:hono",
+    "zod": "npm:zod",
+    "@hono/zod-validator": "npm:@hono/zod-validator"
+  }
+}
