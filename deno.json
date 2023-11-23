@@ -1,5 +1,8 @@
 {
   "tasks": {
     "dev": "deno run -A --unstable main.ts --watch"
+  },
+  "imports": {
+    "hono": "https://deno.land/x/hono@v3.4.1/mod.ts"
   }
 }
