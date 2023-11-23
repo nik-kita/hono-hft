@@ -13,6 +13,7 @@ app.use(
 
 app.get("/api/hello", (c) => c.text("world"));
 
+// TODO
 // deno-lint-ignore no-explicit-any
 app.get("/*", serveStatic({ root: "./ui/dist" }) as any);
 
