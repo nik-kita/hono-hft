@@ -17,7 +17,6 @@ function App() {
     <div className={tw("bg-green-300")}>
       <h1>Hello</h1>
       <h2>{world}</h2>
-      <pre>{JSON.stringify(import.meta.env)}</pre>
     </div>
   );
 }
