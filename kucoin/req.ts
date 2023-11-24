@@ -13,14 +13,17 @@ const { forSignature, method, url }: KuReq<"/api/v1/bullet-private"> = {
 export async function apply_private_connect_token(keys: ApiKeys) {
   const headers = await gen_headers(forSignature, keys);
 
-  console.log(headers);
-
   return fetch(url, { method, headers })
     .then(
       (res) => res.json() as Promise<KuRes<"/api/v1/bullet-private">>,
     )
     .then((r) => {
-      console.log(r);
+      if (r.code !== "200000") {
+        throw new Error(
+          "kucoin-api: problem during applying private connection-token",
+        );
+      }
+
       return r;
     })
     .then(({ data: { instanceServers, token } }) => ({

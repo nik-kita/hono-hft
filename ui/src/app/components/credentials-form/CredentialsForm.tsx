@@ -1,30 +1,53 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { tw } from "../../../utils/tw";
 import * as Yup from "yup";
+import { tw } from "../../../utils/tw";
+import { api_client } from "../../../api_client";
+import { useState } from "react";
 
 export default function CredentialsForm() {
-  return (
+  const [res, set_res] = useState<object | null>(null);
+
+  return res ? <pre>{JSON.stringify(res, null, 2)}</pre> : (
     <Formik
       initialValues={{
         credentials: "",
       }}
       validationSchema={Yup.object({
-        credentials: Yup.string().matches(/^\S+\nS+\n\S+$/, {
+        credentials: Yup.string().matches(/\w+\n\S+\n\S+/, {
           message: "write API key, secret and passphrase in three lines",
         }),
       })}
-      onSubmit={(data) => {
-        console.log(data);
+      onSubmit={async (
+        { credentials },
+        { setSubmitting, setErrors, setValues },
+      ) => {
+        const [key, secret, passphrase] = credentials.split("\n");
+        const payload = {
+          key,
+          secret,
+          passphrase,
+        };
+        const res = await api_client.credentials.$post({
+          json: payload,
+        });
+        if (res.status < 400) {
+          const jRes = await res.json();
+
+          set_res(jRes);
+        } else {
+          await setValues({ credentials: "" });
+          setErrors({
+            credentials: "Check your credentials... something went wrong",
+          });
+          setSubmitting(false);
+        }
       }}
     >
       {(
         {
           isSubmitting,
           values,
-          validateForm,
           submitForm,
-          resetForm,
-          setErrors,
         },
       ) => {
         return (
@@ -36,21 +59,16 @@ export default function CredentialsForm() {
             <Field
               as="textarea"
               rows={3}
+              placeholder={"key\nsecret\npassphrase"}
               type="password"
               name="credentials"
-              onKeyDown={async (ev: KeyboardEvent) => {
-                if (ev.key !== "Enter") return;
-
-                if (values.credentials.split("\n").length > 2) {
+              onKeyDown={(ev: KeyboardEvent) => {
+                if (
+                  ev.key === "Enter" &&
+                  values.credentials.split("\n").length === 3
+                ) {
                   ev.preventDefault();
-                  const { credentials } = await validateForm();
-
-                  if (credentials) {
-                    await resetForm();
-                    setErrors({ credentials });
-                  } else {
-                    await submitForm();
-                  }
+                  submitForm();
                 }
               }}
             />

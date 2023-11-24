@@ -1,7 +1,8 @@
-import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
+import { Hono } from "hono";
 import { z } from "zod";
 import { apply_private_connect_token } from "../../kucoin/req.ts";
+import { HTTPException } from "hono/http-exception";
 
 export const api = new Hono()
   .post(
@@ -22,4 +23,11 @@ export const api = new Hono()
   )
   .get("/hello", (c) => {
     return c.jsonT("world");
+  })
+  .onError((err, c) => {
+    if (err instanceof HTTPException) {
+      return c.json(err, 400);
+    }
+
+    return c.json(err, 500);
   });
