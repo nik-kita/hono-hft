@@ -4,7 +4,8 @@
     "specifiers": {
       "npm:@hono/node-server": "npm:@hono/node-server@1.2.3",
       "npm:@hono/zod-validator": "npm:@hono/zod-validator@0.1.11_hono@3.10.1_zod@3.22.4",
-      "npm:hono": "npm:hono@3.10.1"
+      "npm:hono": "npm:hono@3.10.1",
+      "npm:zod": "npm:zod@3.22.4"
     },
     "npm": {
       "@hono/node-server@1.2.3": {
